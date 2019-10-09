@@ -16,3 +16,9 @@ COPY ./ ./keras-autodoc
 RUN pip install -e ./keras-autodoc
 WORKDIR keras-autodoc
 RUN pytest --ignore=tests/integration_tests tests/
+
+FROM base_image as flake8_tests
+RUN pip install flake8
+COPY ./ ./keras-autodoc
+WORKDIR keras-autodoc
+RUN flake8
