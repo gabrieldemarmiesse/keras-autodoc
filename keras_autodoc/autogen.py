@@ -18,7 +18,7 @@ def render_function(function, clean_module_name, post_process_signature,
     if method:
         signature = signature.replace(clean_module_name(function.__module__) + ".",
                                       "")
-    subblocks.append("### " + function.__name__ + "\n")
+    subblocks.append(f"### {function.__name__}\n")
     subblocks.append(code_snippet(signature))
     docstring = function.__doc__
     if docstring:
@@ -31,7 +31,7 @@ def render_function(function, clean_module_name, post_process_signature,
 def read_page_data(page_data, type, exclude):
     assert type in ["classes", "functions", "methods"]
     data = page_data.get(type, [])
-    for module in page_data.get("all_module_{}".format(type), []):
+    for module in page_data.get(f"all_module_{type}", []):
         module_data = []
         for name in dir(module):
             if name[0] == "_" or name in exclude:
@@ -77,10 +77,10 @@ def read_file(path):
 
 
 def code_snippet(snippet):
-    result = "```python\n"
-    result += snippet.encode("unicode_escape").decode("utf8") + "\n"
-    result += "```\n"
-    return result
+    return (
+        f'```python\n'
+        f'{snippet.encode("unicode_escape").decode("utf8")}\n'
+        f'```\n')
 
 
 def generate(
