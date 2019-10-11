@@ -71,11 +71,6 @@ def collect_class_methods(cls, methods, exclude):
     return methods
 
 
-def read_file(path):
-    with open(path, encoding="utf-8") as f:
-        return f.read()
-
-
 def code_snippet(snippet):
     return (
         f'```python\n'
