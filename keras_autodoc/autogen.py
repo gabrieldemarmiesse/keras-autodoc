@@ -83,15 +83,11 @@ def get_class_and_methods(element, clean_module_name, post_process_signature,
     signature = get_class_signature(
         cls, clean_module_name, post_process_signature
     )
-    subblocks.append(
-        '<span style="float:right;">'
-        + class_to_source_link(cls, clean_module_name, project_url)
-        + "</span>"
-    )
+    subblocks.append(utils.make_source_link(cls, clean_module_name, project_url))
     if element[1]:
-        subblocks.append("## " + cls.__name__ + " class\n")
+        subblocks.append(f"## {cls.__name__} class\n")
     else:
-        subblocks.append("### " + cls.__name__ + "\n")
+        subblocks.append(f"### {cls.__name__}\n")
     subblocks.append(utils.code_snippet(signature))
     docstring = cls.__doc__
     if docstring:
@@ -99,7 +95,7 @@ def get_class_and_methods(element, clean_module_name, post_process_signature,
     methods = collect_class_methods(cls, element[1], exclude)
     if methods:
         subblocks.append("\n---")
-        subblocks.append("## " + cls.__name__ + " methods\n")
+        subblocks.append(f"## {cls.__name__} methods\n")
         subblocks.append(
             "\n---\n".join(
                 [

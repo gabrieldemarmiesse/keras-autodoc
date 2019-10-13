@@ -1,5 +1,6 @@
 import re
 import os
+import inspect
 
 
 def count_leading_spaces(s):
@@ -33,3 +34,12 @@ def code_snippet(snippet):
         f'```python\n'
         f'{snippet.encode("unicode_escape").decode("utf8")}\n'
         f'```\n')
+
+
+def make_source_link(cls, clean_module_name, project_url):
+    module_name = clean_module_name(cls.__module__)
+    path = module_name.replace(".", "/")
+    line = inspect.getsourcelines(cls)[-1]
+    return (f'<span style="float:right;">'
+            f'[[source]]({project_url}/{path}.py#L{line})'
+            f'</span>')
