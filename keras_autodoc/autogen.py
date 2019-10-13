@@ -55,14 +55,6 @@ def read_page_data(page_data, exclude):
     return data_types
 
 
-def class_to_source_link(cls, clean_module_name, project_url):
-    module_name = clean_module_name(cls.__module__)
-    path = module_name.replace(".", "/")
-    path += ".py"
-    line = inspect.getsourcelines(cls)[-1]
-    return f"[[source]]({project_url}/{path}#L{line})"
-
-
 def collect_class_methods(cls, methods, exclude):
     if isinstance(methods, (list, tuple)):
         return [getattr(cls, m) if isinstance(m, str) else m for m in methods]
