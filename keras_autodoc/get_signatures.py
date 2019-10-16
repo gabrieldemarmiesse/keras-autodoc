@@ -3,6 +3,7 @@ import warnings
 
 
 def get_signature_start(function, clean_module_name):
+    """For the Dense layer, it should return the string 'keras.layers.Dense'"""
     try:
         function_module = function.__module__
     except AttributeError:
