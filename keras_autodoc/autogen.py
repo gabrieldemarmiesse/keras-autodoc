@@ -86,7 +86,7 @@ class DocumentationGenerator:
                 docstring = self.process_method_docstring(docstring, function)
             else:
                 docstring = self.process_function_docstring(docstring, function)
-            subblocks.append(process_docstring(docstring))
+            subblocks.append(docstring)
         return "\n\n".join(subblocks)
 
     def get_class_and_methods(self, element):
