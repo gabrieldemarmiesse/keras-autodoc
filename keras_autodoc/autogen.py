@@ -65,13 +65,10 @@ def collect_class_methods(cls, methods, exclude):
     return methods
 
 
-def get_class_and_methods(element, post_process_signature,
-                          project_url, exclude):
+def get_class_and_methods(element, post_process_signature, project_url, exclude):
     cls = element[0]
     subblocks = []
-    signature = get_class_signature(
-        cls, post_process_signature
-    )
+    signature = get_class_signature(cls, post_process_signature)
     subblocks.append(utils.make_source_link(cls, project_url))
     if element[1]:
         subblocks.append(f"## {cls.__name__} class\n")
