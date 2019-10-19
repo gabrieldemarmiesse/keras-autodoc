@@ -35,8 +35,10 @@ def code_snippet(snippet):
 
 
 def make_source_link(cls, clean_module_name, project_url):
-    module_name = clean_module_name(cls.__module__)
-    path = module_name.replace(".", "/")
+    if isinstance(project_url, dict):
+        base_module = cls.__module__.split('.')[0]
+        project_url = project_url[base_module]
+    path = cls.__module__.replace(".", "/")
     line = inspect.getsourcelines(cls)[-1]
     return (f'<span style="float:right;">'
             f'[[source]]({project_url}/{path}.py#L{line})'
