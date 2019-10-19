@@ -40,28 +40,40 @@ class DocumentationGenerator:
         shutil.copytree(self.template_dir, dest_dir)
 
         for page in self.pages:
-            mkdown = self.generate_markdown(page)
+            mkdown = self._generate_markdown(page)
             utils.insert_in_file(mkdown, dest_dir / page["page"])
 
         if self.examples_dir is not None:
             copy_examples(self.examples_dir, dest_dir / "examples")
 
-    def generate_markdown(self, page):
+    def process_function_docstring(self, docstring, function):
+        return process_docstring(docstring)
+
+    def process_class_docstring(self, docstring, class_):
+        return process_docstring(docstring)
+
+    def process_method_docstring(self, docstring, method):
+        return process_docstring(docstring)
+
+    def process_signature(self, signature):
+        return signature
+
+    def _generate_markdown(self, page):
         classes, methods, functions = read_page_data(page, self.exclude)
         utils.format_page_values(classes, methods, functions, name=page['page'])
 
         blocks = []
         for element in classes:
-            subblocks = self.get_class_and_methods(element)
+            subblocks = self._get_class_and_methods(element)
             block = "\n".join(subblocks)
             blocks.append(block)
 
         for method in methods:
-            block = self.render_function(method, method=True)
+            block = self._render_function(method, method=True)
             blocks.append(block)
 
         for function in functions:
-            block = self.render_function(function)
+            block = self._render_function(function)
             blocks.append(block)
 
         if not blocks:
@@ -70,7 +82,7 @@ class DocumentationGenerator:
         mkdown = "\n----\n\n".join(blocks)
         return mkdown
 
-    def render_function(self, function, method=False):
+    def _render_function(self, function, method=False):
         subblocks = []
         signature = self.process_signature(get_function_signature(
             function, method=method
@@ -89,7 +101,7 @@ class DocumentationGenerator:
             subblocks.append(docstring)
         return "\n\n".join(subblocks)
 
-    def get_class_and_methods(self, element):
+    def _get_class_and_methods(self, element):
         cls = element[0]
         subblocks = []
         if self.project_url is not None:
@@ -110,24 +122,12 @@ class DocumentationGenerator:
             subblocks.append(
                 "\n---\n".join(
                     [
-                        self.render_function(method, method=True)
+                        self._render_function(method, method=True)
                         for method in methods
                     ]
                 )
             )
         return subblocks
-
-    def process_function_docstring(self, docstring, function):
-        return process_docstring(docstring)
-
-    def process_class_docstring(self, docstring, class_):
-        return process_docstring(docstring)
-
-    def process_method_docstring(self, docstring, method):
-        return process_docstring(docstring)
-
-    def process_signature(self, signature):
-        return signature
 
 
 def read_page_data(page_data, exclude):

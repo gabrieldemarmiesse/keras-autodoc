@@ -399,7 +399,7 @@ def test_generate_markdown():
     doc_generator = autogen.DocumentationGenerator(
         project_url='www.dummy.com/my_project'
     )
-    markdown_text = doc_generator.generate_markdown(page)
+    markdown_text = doc_generator._generate_markdown(page)
 
     current_file_path = pathlib.Path(__file__).resolve()
     expected_file = current_file_path.parent / 'dummy_package' / 'expected.md'
