@@ -34,7 +34,7 @@ def code_snippet(snippet):
     return f'```python\n{snippet}\n```\n'
 
 
-def make_source_link(cls, clean_module_name, project_url):
+def make_source_link(cls, project_url):
     if isinstance(project_url, dict):
         base_module = cls.__module__.split('.')[0]
         project_url = project_url[base_module]
