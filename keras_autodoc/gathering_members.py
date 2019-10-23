@@ -33,9 +33,8 @@ def _get_all_module_element(module, element_type, exclude):
                 or inspect.isfunction(module_member)
                 and element_type == "functions"
         ):
-            instance = module_member
-            if module.__name__ in instance.__module__:
-                if instance not in module_data:
-                    module_data.append(instance)
+            if module.__name__ in module_member.__module__:
+                if module_member not in module_data:
+                    module_data.append(module_member)
     module_data.sort(key=id)
     return module_data
