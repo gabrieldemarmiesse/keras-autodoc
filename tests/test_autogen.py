@@ -392,8 +392,7 @@ def test_doc_multiple_sections_code():
 
 def test_generate_markdown():
     methods = get_methods(dummy_module.ImageDataGenerator)
-    elements = [dummy_module.Dense,
-                    dummy_module.ImageDataGenerator]
+    elements = [dummy_module.Dense, dummy_module.ImageDataGenerator]
     elements += methods
     elements.append(dummy_module.to_categorical)
 

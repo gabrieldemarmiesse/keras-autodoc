@@ -57,8 +57,7 @@ def format_classes_list(classes, page_name):
     return classes
 
 
-
-def get_class_that_defined_method(meth):
+def get_class_from_method(meth):
     """See
     https://stackoverflow.com/questions/3589311/
     get-defining-class-of-unbound-method-object-in-python-3/
@@ -66,7 +65,7 @@ def get_class_that_defined_method(meth):
     """
     if inspect.ismethod(meth):
         for cls in inspect.getmro(meth.__self__.__class__):
-           if cls.__dict__.get(meth.__name__) is meth:
+            if cls.__dict__.get(meth.__name__) is meth:
                 return cls
         meth = meth.__func__  # fallback to __qualname__ parsing
     if inspect.isfunction(meth):
@@ -78,4 +77,4 @@ def get_class_that_defined_method(meth):
 
 
 def ismethod(function):
-    return get_class_that_defined_method(function) is not None
+    return get_class_from_method(function) is not None
