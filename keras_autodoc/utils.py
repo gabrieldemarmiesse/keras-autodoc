@@ -1,6 +1,10 @@
 import re
 import os
 import inspect
+import pathlib
+from typing import Union
+
+PathLike = Union[str, pathlib.Path]
 
 
 def count_leading_spaces(s):
