@@ -1,5 +1,6 @@
 import inspect
 import warnings
+from . import utils
 
 
 def get_signature_start(function):
@@ -12,6 +13,8 @@ def get_signature_start(function):
         function_module = ''
     else:
         function_module = f'{function_module}.'
+    if utils.ismethod(function):
+        function_module = ''  # may be improved later.
     return f'{function_module}{function.__name__}'
 
 
@@ -27,11 +30,11 @@ def get_signature_end(args, kwargs):
     return f'({all_args_str})'
 
 
-def get_function_signature(function, method=False):
+def get_function_signature(function):
     original_function = getattr(function, "_original_function", function)
     signature = inspect.getfullargspec(original_function)
     args = list(signature.args)
-    if method and args and args[0] == 'self':
+    if utils.ismethod(function) and args and args[0] == 'self':
         args.pop(0)
     defaults = signature.defaults or []
     kwargs = zip(args[-len(defaults):], defaults)
@@ -50,6 +53,6 @@ def get_class_signature(cls):
         # define __init__
         class_signature = f"{cls.__module__}.{cls.__name__}()"
     else:
-        class_signature = get_function_signature(init_method, method=True)
+        class_signature = get_function_signature(init_method)
         class_signature = class_signature.replace("__init__", cls.__name__)
     return class_signature
