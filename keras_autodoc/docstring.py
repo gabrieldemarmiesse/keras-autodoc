@@ -82,7 +82,7 @@ def get_code_blocks(docstring):
         if leading_spaces:
             snippet_lines = (
                     [snippet_lines[0]]
-                    + [line[leading_spaces:] for line in snippet_lines[1:-1]]
+                    + [line[leading_spaces:] for line in inner_lines]
                     + [snippet_lines[-1]]
             )
         snippet = "\n".join(snippet_lines)
