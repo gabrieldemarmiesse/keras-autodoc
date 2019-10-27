@@ -445,5 +445,19 @@ def test_aliases_methods(element, expected):
     assert expected in computed
 
 
+class A:
+    def dodo(self):
+        """Some docstring."""
+        pass
+
+class B(A):
+    def dodo(self):
+        pass
+
+def test_get_docstring_of_super_class():
+    computed = autogen.DocumentationGenerator()._render(B.dodo)
+    assert 'Some docstring' in computed
+
+
 if __name__ == "__main__":
     pytest.main([__file__])
