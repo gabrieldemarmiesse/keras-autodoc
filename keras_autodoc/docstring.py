@@ -51,8 +51,7 @@ def process_list_block(docstring,
     return docstring, block
 
 
-def process_docstring(docstring):
-    # First, extract code blocks and process them.
+def get_code_blocks(docstring):
     code_blocks = []
     tmp = docstring[:]
     while "```" in tmp:
@@ -82,14 +81,20 @@ def process_docstring(docstring):
                 leading_spaces = spaces
         if leading_spaces:
             snippet_lines = (
-                [snippet_lines[0]]
-                + [line[leading_spaces:] for line in snippet_lines[1:-1]]
-                + [snippet_lines[-1]]
+                    [snippet_lines[0]]
+                    + [line[leading_spaces:] for line in snippet_lines[1:-1]]
+                    + [snippet_lines[-1]]
             )
         snippet = "\n".join(snippet_lines)
         code_blocks.append(snippet)
         tmp = tmp[index:]
 
+    return code_blocks, docstring
+
+
+def process_docstring(docstring):
+    # First, extract code blocks and process them.
+    code_blocks, docstring = get_code_blocks(docstring)
     # Format docstring lists.
     section_regex = r"\n( +)# (.*)\n"
     section_idx = re.search(section_regex, docstring)
