@@ -97,13 +97,13 @@ def get_code_blocks(docstring):
 
 def get_sections(docstring):
     # Format docstring lists.
-    section_regex = r"\n( *)# (.*)\n"
+    section_regex = r"\n# (.*)\n"
     section_idx = re.search(section_regex, docstring)
     shift = 0
     sections = {}
-    while section_idx and section_idx.group(2):
-        anchor = section_idx.group(2)
-        leading_spaces = len(section_idx.group(1))
+    while section_idx and section_idx.group(1):
+        anchor = section_idx.group(1)
+        leading_spaces = 0
         shift += section_idx.end()
         next_section_idx = re.search(section_regex, docstring[shift:])
         if next_section_idx is None:
