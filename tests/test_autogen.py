@@ -437,7 +437,7 @@ def test_aliases_class_function(element):
 @pytest.mark.parametrize(['element', 'expected'], [
     ('tests.dummy_package.DataGenerator.flow', '\nDataGenerator.flow('),
     ('tests.dummy_package.DataGenerator.flow_from_directory',
-     '\nDataGenerator.flow_from_directory'),
+     '\nDataGenerator.flow_from_directory('),
 ])
 def test_aliases_methods(element, expected):
     doc_generator = autogen.DocumentationGenerator()
