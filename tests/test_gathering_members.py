@@ -26,6 +26,12 @@ def test_get_module_classes():
     assert set(get_classes(dummy_module, return_strings=False)) == expected
 
 
+def test_get_module_classes_from_str_to_str():
+    expected = {'tests.dummy_package.dummy_module.ImageDataGenerator',
+                'tests.dummy_package.dummy_module.Dense'}
+    assert set(get_classes(dummy_module)) == expected
+
+
 def test_get_class_methods():
     expected = {
         dummy_module.ImageDataGenerator.flow,
@@ -33,4 +39,13 @@ def test_get_class_methods():
     }
     computed = get_methods(dummy_module.ImageDataGenerator, return_strings=False)
     computed = set(computed)
+    assert computed == expected
+
+
+def test_get_class_methods_aliases():
+    expected = {
+        'tests.dummy_package.DataGenerator.flow',
+        'tests.dummy_package.DataGenerator.flow_from_directory'
+    }
+    computed = set(get_methods('tests.dummy_package.DataGenerator'))
     assert computed == expected
