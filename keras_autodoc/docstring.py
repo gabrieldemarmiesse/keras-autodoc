@@ -92,9 +92,7 @@ def get_code_blocks(docstring):
     return code_blocks, docstring
 
 
-def process_docstring(docstring):
-    # First, extract code blocks and process them.
-    code_blocks, docstring = get_code_blocks(docstring)
+def get_sections(docstring):
     # Format docstring lists.
     section_regex = r"\n( +)# (.*)\n"
     section_idx = re.search(section_regex, docstring)
@@ -117,6 +115,14 @@ def process_docstring(docstring):
         # `docstring` has changed, so we can't use `next_section_idx` anymore
         # we have to recompute it
         section_idx = re.search(section_regex, docstring[shift:])
+    return sections, docstring
+
+
+def process_docstring(docstring):
+    # First, extract code blocks and process them.
+    code_blocks, docstring = get_code_blocks(docstring)
+
+    sections, docstring = get_sections(docstring)
 
     # Format docstring section titles.
     docstring = re.sub(r"\n(\s+)# (.*)\n", r"\n\1__\2__\n\n", docstring)
