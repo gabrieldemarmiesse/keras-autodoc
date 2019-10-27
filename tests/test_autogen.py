@@ -360,25 +360,25 @@ def test_doc_lists(docs_descriptor):
 
 dummy_docstring = """Multiplies 2 tensors (and/or variables) and returns a *tensor*.
 
-    When attempting to multiply a nD tensor
-    with a nD tensor, it reproduces the Theano behavior.
-    (e.g. `(2, 3) * (4, 3, 5) -> (2, 4, 5)`)
+When attempting to multiply a nD tensor
+with a nD tensor, it reproduces the Theano behavior.
+(e.g. `(2, 3) * (4, 3, 5) -> (2, 4, 5)`)
 
-    # Examples
-    ```python
-        # Theano-like behavior example
-        >>> x = K.random_uniform_variable(shape=(2, 3), low=0, high=1)
-        >>> y = K.ones((4, 3, 5))
-        >>> xy = K.dot(x, y)
-        >>> K.int_shape(xy)
-        (2, 4, 5)
-    ```
+# Examples
+```python
+    # Theano-like behavior example
+    >>> x = K.random_uniform_variable(shape=(2, 3), low=0, high=1)
+    >>> y = K.ones((4, 3, 5))
+    >>> xy = K.dot(x, y)
+    >>> K.int_shape(xy)
+    (2, 4, 5)
+```
 
-    # Numpy implementation
-    ```python
-        def dot(x, y):
-            return dot(x, y)
-    ```
+# Numpy implementation
+```python
+    def dot(x, y):
+        return dot(x, y)
+```
     """
 
 
@@ -450,9 +450,11 @@ class A:
         """Some docstring."""
         pass
 
+
 class B(A):
     def dodo(self):
         pass
+
 
 def test_get_docstring_of_super_class():
     computed = autogen.DocumentationGenerator()._render(B.dodo)
