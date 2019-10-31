@@ -43,7 +43,7 @@ nav:
       - Some callbacks: callbacks.md
 ```
 
-Call this code, then you just have to run:
+Call this Python code, then you just have to run:
 
 ```bash
 mkdocs serve
