@@ -103,19 +103,7 @@ class DocumentationGenerator:
         return '\n'.join(subblocks) + '\n\n----\n\n'
 
     def _render_method(self, method, signature_override=None):
-        subblocks = []
-        if self.project_url is not None:
-            subblocks.append(utils.make_source_link(method, self.project_url))
-        signature = get_function_signature(method, signature_override)
-        signature = self.process_signature(signature)
-        subblocks.append(f"### {method.__name__} method\n")
-        subblocks.append(utils.code_snippet(signature))
-
-        docstring = getdoc(method)
-        if docstring:
-            docstring = self.process_docstring(docstring)
-            subblocks.append(docstring)
-        return "\n\n".join(subblocks) + '\n\n----\n\n'
+        return self._render_from_object(method, 'method', signature_override)
 
     def _render_function(self, function, signature_override=None):
         return self._render_from_object(function, 'function', signature_override)
