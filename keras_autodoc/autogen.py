@@ -76,13 +76,14 @@ class DocumentationGenerator:
     def _render(self, element):
         if isinstance(element, str):
             signature_override = element
-            element = utils.import_object(element)
-            if utils.ismethod(element):
+            object_ = utils.import_object(element)
+            if utils.ismethod(object_):
                 signature_override = '.'.join(signature_override.split('.')[-2:])
         else:
             signature_override = None
+            object_ = element
 
-        return self._render_from_object(element, signature_override)
+        return self._render_from_object(object_, signature_override)
 
     def _render_from_object(self, object_, signature_override: str):
         subblocks = []
