@@ -84,7 +84,6 @@ class DocumentationGenerator:
         elif utils.ismethod(element):
             if signature_override is not None:
                 signature_override = '.'.join(signature_override.split('.')[-2:])
-            return self._render_from_object(element, signature_override)
         return self._render_from_object(element, signature_override)
 
     def _render_from_object(self, object_, signature_override: str):
