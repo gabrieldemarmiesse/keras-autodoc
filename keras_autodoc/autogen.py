@@ -1,6 +1,6 @@
 import shutil
 import pathlib
-from inspect import isclass, isfunction, getdoc
+from inspect import isclass, getdoc
 from typing import Dict, Union
 
 from .docstring import process_docstring
@@ -66,9 +66,11 @@ class DocumentationGenerator:
             copy_examples(self.examples_dir, dest_dir / "examples")
 
     def process_docstring(self, docstring):
+        """Can be overridden."""
         return process_docstring(docstring)
 
     def process_signature(self, signature):
+        """Can be overridden."""
         return signature
 
     def _render(self, element):
@@ -83,11 +85,7 @@ class DocumentationGenerator:
             if signature_override is not None:
                 signature_override = '.'.join(signature_override.split('.')[-2:])
             return self._render_from_object(element, signature_override)
-        elif isfunction(element):
-            return self._render_from_object(element, signature_override)
-        else:
-            raise TypeError(f'Object {element} with type {type(element)}'
-                            f' is not a class nor a function.')
+        return self._render_from_object(element, signature_override)
 
     def _render_from_object(self, object_, signature_override: str):
         subblocks = []
