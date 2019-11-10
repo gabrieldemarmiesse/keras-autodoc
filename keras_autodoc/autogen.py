@@ -8,6 +8,7 @@ from .examples import copy_examples
 from .get_signatures import get_signature
 
 from . import utils
+from .utils import get_type
 
 
 class DocumentationGenerator:
@@ -89,21 +90,21 @@ class DocumentationGenerator:
                             f' is not a class nor a function.')
 
     def _render_class(self, cls, signature_override=None):
-        return self._render_from_object(cls, 'class', signature_override)
+        return self._render_from_object(cls, signature_override)
 
     def _render_method(self, method, signature_override=None):
-        return self._render_from_object(method, 'method', signature_override)
+        return self._render_from_object(method, signature_override)
 
     def _render_function(self, function, signature_override=None):
-        return self._render_from_object(function, 'function', signature_override)
+        return self._render_from_object(function, signature_override)
 
-    def _render_from_object(self, object_, type_: str, signature_override: str):
+    def _render_from_object(self, object_, signature_override: str):
         subblocks = []
         if self.project_url is not None:
             subblocks.append(utils.make_source_link(object_, self.project_url))
         signature = get_signature(object_, signature_override)
         signature = self.process_signature(signature)
-        subblocks.append(f"### {object_.__name__} {type_}\n")
+        subblocks.append(f"### {object_.__name__} {get_type(object_)}\n")
         subblocks.append(utils.code_snippet(signature))
 
         docstring = getdoc(object_)
