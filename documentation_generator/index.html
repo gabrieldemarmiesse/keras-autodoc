@@ -97,8 +97,10 @@
 <p>Generates the documentation.</p>
 <p><strong>Arguments</strong></p>
 <ul>
-<li><strong>pages</strong>: A dictionary containing the names of functions / classes / methods
-    to add to the documentation.</li>
+<li><strong>pages</strong>: A dictionary. The keys are the files' paths, the values
+    are lists of strings, functions /classes / methods names
+    with dotted access to the object. For example,
+    <code>pages = {'my_file.md': ['keras.layers.Dense']}</code> is valid.</li>
 <li><strong>project_url</strong>: The url pointing to the module directory of your project on
     GitHub. This will be used to make a <code>[Sources]</code> link.</li>
 <li><strong>template_dir</strong>: Where to put the markdown files which will be copied and
