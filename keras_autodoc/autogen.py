@@ -5,7 +5,7 @@ from typing import Dict, Union
 
 from .docstring import process_docstring
 from .examples import copy_examples
-from .get_signatures import get_function_signature, get_class_signature
+from .get_signatures import get_signature
 
 from . import utils
 
@@ -89,18 +89,7 @@ class DocumentationGenerator:
                             f' is not a class nor a function.')
 
     def _render_class(self, cls, signature_override=None):
-        subblocks = []
-        if self.project_url is not None:
-            subblocks.append(utils.make_source_link(cls, self.project_url))
-        subblocks.append(f"### {cls.__name__} class\n")
-
-        signature = get_class_signature(cls, signature_override)
-        signature = self.process_signature(signature)
-        subblocks.append(utils.code_snippet(signature))
-        docstring = getdoc(cls)
-        if docstring:
-            subblocks.append(self.process_docstring(docstring))
-        return '\n'.join(subblocks) + '\n\n----\n\n'
+        return self._render_from_object(cls, 'class', signature_override)
 
     def _render_method(self, method, signature_override=None):
         return self._render_from_object(method, 'method', signature_override)
@@ -112,7 +101,7 @@ class DocumentationGenerator:
         subblocks = []
         if self.project_url is not None:
             subblocks.append(utils.make_source_link(object_, self.project_url))
-        signature = get_function_signature(object_, signature_override)
+        signature = get_signature(object_, signature_override)
         signature = self.process_signature(signature)
         subblocks.append(f"### {object_.__name__} {type_}\n")
         subblocks.append(utils.code_snippet(signature))
