@@ -75,10 +75,12 @@ class DocumentationGenerator:
 
     def _render(self, element):
         if isinstance(element, str):
-            signature_override = element
             object_ = utils.import_object(element)
             if utils.ismethod(object_):
-                signature_override = '.'.join(signature_override.split('.')[-2:])
+                # we remove the modules when displaying the methods
+                signature_override = '.'.join(element.split('.')[-2:])
+            else:
+                signature_override = element
         else:
             signature_override = None
             object_ = element
