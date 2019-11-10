@@ -1,6 +1,6 @@
 import shutil
 import pathlib
-from inspect import isclass, getdoc
+from inspect import getdoc
 from typing import Dict, Union
 
 from .docstring import process_docstring
@@ -79,9 +79,7 @@ class DocumentationGenerator:
             element = utils.import_object(element)
         else:
             signature_override = None
-        if isclass(element):
-            return self._render_from_object(element, signature_override)
-        elif utils.ismethod(element):
+        if utils.ismethod(element):
             if signature_override is not None:
                 signature_override = '.'.join(signature_override.split('.')[-2:])
         return self._render_from_object(element, signature_override)
