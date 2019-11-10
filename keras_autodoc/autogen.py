@@ -78,25 +78,16 @@ class DocumentationGenerator:
         else:
             signature_override = None
         if isclass(element):
-            return self._render_class(element, signature_override)
+            return self._render_from_object(element, signature_override)
         elif utils.ismethod(element):
             if signature_override is not None:
                 signature_override = '.'.join(signature_override.split('.')[-2:])
-            return self._render_method(element, signature_override)
+            return self._render_from_object(element, signature_override)
         elif isfunction(element):
-            return self._render_function(element, signature_override)
+            return self._render_from_object(element, signature_override)
         else:
             raise TypeError(f'Object {element} with type {type(element)}'
                             f' is not a class nor a function.')
-
-    def _render_class(self, cls, signature_override=None):
-        return self._render_from_object(cls, signature_override)
-
-    def _render_method(self, method, signature_override=None):
-        return self._render_from_object(method, signature_override)
-
-    def _render_function(self, function, signature_override=None):
-        return self._render_from_object(function, signature_override)
 
     def _render_from_object(self, object_, signature_override: str):
         subblocks = []
