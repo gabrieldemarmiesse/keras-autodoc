@@ -64,13 +64,7 @@ class DocumentationGenerator:
         if self.examples_dir is not None:
             copy_examples(self.examples_dir, dest_dir / "examples")
 
-    def process_function_docstring(self, docstring, function):
-        return process_docstring(docstring)
-
-    def process_class_docstring(self, docstring, class_):
-        return process_docstring(docstring)
-
-    def process_method_docstring(self, docstring, method):
+    def process_docstring(self, docstring):
         return process_docstring(docstring)
 
     def process_signature(self, signature):
@@ -105,7 +99,7 @@ class DocumentationGenerator:
         subblocks.append(utils.code_snippet(signature))
         docstring = getdoc(cls)
         if docstring:
-            subblocks.append(self.process_class_docstring(docstring, cls))
+            subblocks.append(self.process_docstring(docstring))
         return '\n'.join(subblocks) + '\n\n----\n\n'
 
     def _render_method(self, method, signature_override=None):
@@ -119,7 +113,7 @@ class DocumentationGenerator:
 
         docstring = getdoc(method)
         if docstring:
-            docstring = self.process_method_docstring(docstring, method)
+            docstring = self.process_docstring(docstring)
             subblocks.append(docstring)
         return "\n\n".join(subblocks) + '\n\n----\n\n'
 
@@ -137,6 +131,6 @@ class DocumentationGenerator:
 
         docstring = getdoc(object_)
         if docstring:
-            docstring = self.process_function_docstring(docstring, object_)
+            docstring = self.process_docstring(docstring)
             subblocks.append(docstring)
         return "\n\n".join(subblocks) + '\n\n----\n\n'
