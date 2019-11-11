@@ -158,7 +158,7 @@ x = keras.Input((None, 5))
 layer = RNN(cells)
 y = layer(x)
 ```
-    """,
+""",
     "result": """Base class for recurrent layers.
 
 __Arguments__
@@ -176,11 +176,9 @@ __Arguments__
         (one size per state). In this case, the first entry
         (`state_size[0]`) should be the same as
         the size of the cell output.
-
     It is also possible for `cell` to be a list of RNN cell instances,
     in which cases the cells get stacked on after the other in the RNN,
     implementing an efficient stacked RNN.
-
 - __return_sequences__: Boolean. Whether to return the last output
     in the output sequence, or the full sequence.
 - __return_state__: Boolean. Whether to return the last state
@@ -211,9 +209,8 @@ __Arguments__
     at the level of the first layer
     (e.g. via the `input_shape` argument)
 
-__Input shape__
-
-3D tensor with shape `(batch_size, timesteps, input_dim)`.
+# Input shape
+    3D tensor with shape `(batch_size, timesteps, input_dim)`.
 
 __Output shape__
 
@@ -224,12 +221,11 @@ __Output shape__
     `(batch_size, timesteps, units)`.
 - else, 2D tensor with shape `(batch_size, units)`.
 
-__Masking__
-
-This layer supports masking for input data with a variable number
-of timesteps. To introduce masks to your data,
-use an [Embedding](embeddings.md) layer with the `mask_zero` parameter
-set to `True`.
+# Masking
+    This layer supports masking for input data with a variable number
+    of timesteps. To introduce masks to your data,
+    use an [Embedding](embeddings.md) layer with the `mask_zero` parameter
+    set to `True`.
 
 __Note on using statefulness in RNNs__
 
@@ -239,52 +235,45 @@ for the samples in the next batch. This assumes a one-to-one mapping
 between samples in different successive batches.
 
 To enable statefulness:
-- specify `stateful=True` in the layer constructor.
-- specify a fixed batch size for your model, by passing
-if sequential model:
-`batch_input_shape=(...)` to the first layer in your model.
-else for functional model with 1 or more Input layers:
-`batch_shape=(...)` to all the first layers in your model.
-This is the expected shape of your inputs
-*including the batch size*.
-It should be a tuple of integers, e.g. `(32, 10, 100)`.
-- specify `shuffle=False` when calling fit().
+    - specify `stateful=True` in the layer constructor.
+    - specify a fixed batch size for your model, by passing
+        if sequential model:
+          `batch_input_shape=(...)` to the first layer in your model.
+        else for functional model with 1 or more Input layers:
+          `batch_shape=(...)` to all the first layers in your model.
+        This is the expected shape of your inputs
+        *including the batch size*.
+        It should be a tuple of integers, e.g. `(32, 10, 100)`.
+    - specify `shuffle=False` when calling fit().
 
 To reset the states of your model, call `.reset_states()` on either
 a specific layer, or on your entire model.
 
-__Note on specifying the initial state of RNNs__
-
+# Note on specifying the initial state of RNNs
 Note: that
-- __One__: You can specify the initial state of RNN layers symbolically by
-    calling them with the keyword argument `initial_state`.
-- __Two__: The value of `initial_state` should be a tensor or list of
-    tensors representing
+    One: You can specify the initial state of RNN layers symbolically by
+        calling them with the keyword argument `initial_state`.
+    Two: The value of `initial_state` should be a tensor or list of
+        tensors representing
+        the initial state of the RNN layer.
+    You can specify the initial state of RNN layers numerically by:
+    One: calling `reset_states`
+        - With the keyword argument `states`.
+            - The value of
+        `states` should be a numpy array or
+        list of numpy arrays representing
     the initial state of the RNN layer.
-
-You can specify the initial state of RNN layers numerically by:
-
-- __One__: calling `reset_states`
-    - With the keyword argument `states`.
-        - The value of
-
-    `states` should be a numpy array or
-    list of numpy arrays representing
-
-the initial state of the RNN layer.
 
 __Note on passing external constants to RNNs__
 
 You can pass "external" constants to the cell using the `constants`
-- __keyword__: argument of `RNN.__call__` (as well as `RNN.call`) method.
-- __This__: requires that the `cell.call` method accepts the same keyword argument
-
+keyword: argument of `RNN.__call__` (as well as `RNN.call`) method.
+This: requires that the `cell.call` method accepts the same keyword argument
 `constants`. Such constants can be used to condition the cell
 transformation on additional static inputs (not changing over time),
 a.k.a. an attention mechanism.
 
-__Examples__
-
+# Examples
 
 ```python
 # First, let's define a RNN Cell, as a layer subclass.
@@ -337,7 +326,7 @@ test_doc_with_arguments_as_last_block = {
         in the output sequence, or the full sequence.
     return_state: Boolean. Whether to return the last state
         in addition to the output.
-    """,
+""",
     "result": """Base class for recurrent layers.
 
 __Arguments__
