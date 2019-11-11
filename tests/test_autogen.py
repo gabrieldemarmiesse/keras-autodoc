@@ -79,34 +79,35 @@ test_doc1 = {
     between samples in different successive batches.
 
     To enable statefulness:
-        - specify `stateful=True` in the layer constructor.
-        - specify a fixed batch size for your model, by passing
-            if sequential model:
-              `batch_input_shape=(...)` to the first layer in your model.
-            else for functional model with 1 or more Input layers:
-              `batch_shape=(...)` to all the first layers in your model.
-            This is the expected shape of your inputs
-            *including the batch size*.
-            It should be a tuple of integers, e.g. `(32, 10, 100)`.
-        - specify `shuffle=False` when calling fit().
+    - specify `stateful=True` in the layer constructor.
+    - specify a fixed batch size for your model, by passing
+        if sequential model:
+          `batch_input_shape=(...)` to the first layer in your model.
+        else for functional model with 1 or more Input layers:
+          `batch_shape=(...)` to all the first layers in your model.
+        This is the expected shape of your inputs
+        *including the batch size*.
+        It should be a tuple of integers, e.g. `(32, 10, 100)`.
+    - specify `shuffle=False` when calling fit().
 
     To reset the states of your model, call `.reset_states()` on either
     a specific layer, or on your entire model.
 
 # Note on specifying the initial state of RNNs
-Note: that
-    One: You can specify the initial state of RNN layers symbolically by
-        calling them with the keyword argument `initial_state`.
-    Two: The value of `initial_state` should be a tensor or list of
-        tensors representing
-        the initial state of the RNN layer.
-    You can specify the initial state of RNN layers numerically by:
-    One: calling `reset_states`
-        - With the keyword argument `states`.
-            - The value of
-        `states` should be a numpy array or
-        list of numpy arrays representing
+
+Note that
+One: You can specify the initial state of RNN layers symbolically by
+    calling them with the keyword argument `initial_state`.
+Two: The value of `initial_state` should be a tensor or list of
+    tensors representing
     the initial state of the RNN layer.
+You can specify the initial state of RNN layers numerically by:
+One: calling `reset_states`
+    - With the keyword argument `states`.
+        - The value of
+    `states` should be a numpy array or
+    list of numpy arrays representing
+the initial state of the RNN layer.
 
 # Note on passing external constants to RNNs
     You can pass "external" constants to the cell using the `constants`
@@ -221,11 +222,12 @@ __Output shape__
     `(batch_size, timesteps, units)`.
 - else, 2D tensor with shape `(batch_size, units)`.
 
-# Masking
-    This layer supports masking for input data with a variable number
-    of timesteps. To introduce masks to your data,
-    use an [Embedding](embeddings.md) layer with the `mask_zero` parameter
-    set to `True`.
+__Masking__
+
+This layer supports masking for input data with a variable number
+of timesteps. To introduce masks to your data,
+use an [Embedding](embeddings.md) layer with the `mask_zero` parameter
+set to `True`.
 
 __Note on using statefulness in RNNs__
 
@@ -249,20 +251,21 @@ To enable statefulness:
 To reset the states of your model, call `.reset_states()` on either
 a specific layer, or on your entire model.
 
-# Note on specifying the initial state of RNNs
-Note: that
-    One: You can specify the initial state of RNN layers symbolically by
-        calling them with the keyword argument `initial_state`.
-    Two: The value of `initial_state` should be a tensor or list of
-        tensors representing
-        the initial state of the RNN layer.
-    You can specify the initial state of RNN layers numerically by:
-    One: calling `reset_states`
-        - With the keyword argument `states`.
-            - The value of
-        `states` should be a numpy array or
-        list of numpy arrays representing
+__Note on specifying the initial state of RNNs__
+
+Note that
+One: You can specify the initial state of RNN layers symbolically by
+    calling them with the keyword argument `initial_state`.
+Two: The value of `initial_state` should be a tensor or list of
+    tensors representing
     the initial state of the RNN layer.
+You can specify the initial state of RNN layers numerically by:
+One: calling `reset_states`
+    - With the keyword argument `states`.
+    - The value of
+    `states` should be a numpy array or
+    list of numpy arrays representing
+the initial state of the RNN layer.
 
 __Note on passing external constants to RNNs__
 
@@ -273,7 +276,7 @@ This: requires that the `cell.call` method accepts the same keyword argument
 transformation on additional static inputs (not changing over time),
 a.k.a. an attention mechanism.
 
-# Examples
+__Examples__
 
 ```python
 # First, let's define a RNN Cell, as a layer subclass.

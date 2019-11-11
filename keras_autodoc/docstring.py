@@ -62,8 +62,8 @@ def to_markdown(google_style_section: str) -> str:
 
 
 def format_as_markdown_list(section_body):
-    section_body = re.sub(r'\n(.+?):', r'\n- __\1__:', section_body)
-    section_body = re.sub(r'^(.+?):', r'- __\1__:', section_body)
+    section_body = re.sub(r'\n([^ ].*?):', r'\n- __\1__:', section_body)
+    section_body = re.sub(r'^([^ ].*?):', r'- __\1__:', section_body)
     return section_body
 
 
