@@ -67,7 +67,7 @@ Some text is here.
 
 # A section
     Some stuff written
-    
+
     Some line jump
 
 Some more text.
@@ -148,3 +148,30 @@ Some more text.
 def test_generate_docstring_no_indent():
     computed = process_docstring(docstring5)
     assert computed == expected5
+
+
+docstring6 = """This is a docstring
+
+Some text is here.
+
+# Output shape
+    nD tensor with shape: `(batch_size, ..., units)`.
+    For instance, for a 2D input with shape `(batch_size, input_dim)`,
+    the output would have shape `(batch_size, units)`.
+"""
+
+expected6 = """This is a docstring
+
+Some text is here.
+
+__Output shape__
+
+nD tensor with shape: `(batch_size, ..., units)`.
+For instance, for a 2D input with shape `(batch_size, input_dim)`,
+the output would have shape `(batch_size, units)`.
+"""
+
+
+def test_generate_docstring_weird_poing_bug():
+    computed = process_docstring(docstring6)
+    assert computed == expected6

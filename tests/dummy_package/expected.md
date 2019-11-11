@@ -82,8 +82,7 @@ __Output shape__
 
 nD tensor with shape: `(batch_size, ..., units)`.
 For instance, for a 2D input with shape `(batch_size, input_dim)`,
-the output would have shape `(batch_size, units)`
-.
+the output would have shape `(batch_size, units)`.
 
 
 ----
@@ -388,8 +387,7 @@ of numpy arrays (in the case with
 additional inputs) and `y` is a numpy array
 of corresponding labels. If 'sample_weight' is not None,
 the yielded tuples are of the form `(x, y, sample_weight)`.
-If `y` is None, only the numpy array `x` is returned
-.
+If `y` is None, only the numpy array `x` is returned.
 
 
 ----
@@ -493,8 +491,7 @@ __Returns__
 A `DirectoryIterator` yielding tuples of `(x, y)`
 where `x` is a numpy array containing a batch
 of images with shape `(batch_size, *target_size, channels)`
-and `y` is a numpy array of corresponding labels
-.
+and `y` is a numpy array of corresponding labels.
 
 
 ----

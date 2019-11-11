@@ -3,6 +3,7 @@ import itertools
 
 from . import utils
 
+
 def get_code_blocks(docstring):
     code_blocks = {}
     tmp = docstring[:]
@@ -18,10 +19,16 @@ def get_code_blocks(docstring):
 
     return code_blocks, docstring
 
+
 def get_section_end(docstring, section_start):
     regex_indented_sections_end = re.compile(r'\S\n+(\S|$)')
     end = re.search(regex_indented_sections_end, docstring[section_start:])
-    return section_start + end.end() - 2
+    section_end = section_start + end.end()
+    if section_end == len(docstring):
+        return section_end
+    else:
+        return section_end - 2
+
 
 def get_google_style_sections_without_code(docstring):
     regex_indented_sections_start = re.compile(r'\n# .+?\n')
@@ -32,11 +39,12 @@ def get_google_style_sections_without_code(docstring):
         if match is None:
             break
         section_start = match.start() + 1
-        section_end= get_section_end(docstring, section_start)
+        section_end = get_section_end(docstring, section_start)
         google_style_section = docstring[section_start:section_end]
         token = f'KERAS_AUTODOC_GOOGLE_STYLE_SECTION_{i}'
         google_style_sections[token] = google_style_section
-        docstring = utils.insert_in_string(docstring, token, section_start, section_end)
+        docstring = utils.insert_in_string(docstring, token,
+                                           section_start, section_end)
     return google_style_sections, docstring
 
 
@@ -81,7 +89,6 @@ def reinject_strings(target, strings_to_inject):
     return target
 
 
-
 def process_docstring(docstring):
     if docstring[-1] != '\n':
         docstring += '\n'
@@ -91,5 +98,3 @@ def process_docstring(docstring):
         markdown_section = to_markdown(google_style_section)
         docstring = docstring.replace(token, markdown_section)
     return docstring
-
-

@@ -114,7 +114,6 @@ def insert_in_string(target, string_to_insert, start, end):
     target_end_cut = target[end:]
     return target_start_cut + string_to_insert + target_end_cut
 
-import re
 
 def remove_indentation(string):
     string = string.replace('\n    ', '\n')
