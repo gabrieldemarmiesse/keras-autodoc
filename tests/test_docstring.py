@@ -59,3 +59,92 @@ Some more text.
 def test_generate_docstring_with_colon():
     computed = process_docstring(docstring2)
     assert computed == expected2
+
+
+docstring3 = """This is a docstring
+
+Some text is here.
+
+# A section
+    Some stuff written
+    
+    Some line jump
+
+Some more text.
+"""
+
+expected3 = """This is a docstring
+
+Some text is here.
+
+__A section__
+
+Some stuff written
+
+Some line jump
+
+Some more text.
+"""
+
+
+def test_generate_docstring_line_jump():
+    computed = process_docstring(docstring3)
+    assert computed == expected3
+
+
+docstring4 = """This is a docstring
+
+Some text is here.
+
+# A section
+    Some stuff written
+    Some line jump
+Some more text.
+"""
+
+expected4 = """This is a docstring
+
+Some text is here.
+
+__A section__
+
+Some stuff written
+Some line jump
+
+Some more text.
+"""
+
+
+def test_generate_docstring_lines_stuck():
+    computed = process_docstring(docstring4)
+    assert computed == expected4
+
+
+docstring5 = """This is a docstring
+
+Some text is here.
+
+# A section
+
+Some stuff written
+Some line jump
+
+Some more text.
+"""
+
+expected5 = """This is a docstring
+
+Some text is here.
+
+__A section__
+
+Some stuff written
+Some line jump
+
+Some more text.
+"""
+
+
+def test_generate_docstring_no_indent():
+    computed = process_docstring(docstring5)
+    assert computed == expected5

@@ -210,8 +210,9 @@ __Arguments__
     at the level of the first layer
     (e.g. via the `input_shape` argument)
 
-# Input shape
-    3D tensor with shape `(batch_size, timesteps, input_dim)`.
+__Input shape__
+
+3D tensor with shape `(batch_size, timesteps, input_dim)`.
 
 __Output shape__
 
@@ -237,16 +238,16 @@ for the samples in the next batch. This assumes a one-to-one mapping
 between samples in different successive batches.
 
 To enable statefulness:
-    - specify `stateful=True` in the layer constructor.
-    - specify a fixed batch size for your model, by passing
-        if sequential model:
-          `batch_input_shape=(...)` to the first layer in your model.
-        else for functional model with 1 or more Input layers:
-          `batch_shape=(...)` to all the first layers in your model.
-        This is the expected shape of your inputs
-        *including the batch size*.
-        It should be a tuple of integers, e.g. `(32, 10, 100)`.
-    - specify `shuffle=False` when calling fit().
+- specify `stateful=True` in the layer constructor.
+- specify a fixed batch size for your model, by passing
+    if sequential model:
+      `batch_input_shape=(...)` to the first layer in your model.
+    else for functional model with 1 or more Input layers:
+      `batch_shape=(...)` to all the first layers in your model.
+    This is the expected shape of your inputs
+    *including the batch size*.
+    It should be a tuple of integers, e.g. `(32, 10, 100)`.
+- specify `shuffle=False` when calling fit().
 
 To reset the states of your model, call `.reset_states()` on either
 a specific layer, or on your entire model.
@@ -262,7 +263,7 @@ Two: The value of `initial_state` should be a tensor or list of
 You can specify the initial state of RNN layers numerically by:
 One: calling `reset_states`
     - With the keyword argument `states`.
-    - The value of
+        - The value of
     `states` should be a numpy array or
     list of numpy arrays representing
 the initial state of the RNN layer.
