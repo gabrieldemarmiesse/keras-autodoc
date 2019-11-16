@@ -1,4 +1,4 @@
-FROM python:3.6 as base_image
+FROM python:3.7 as base_image
 
 RUN pip install tensorflow
 RUN pip install markdown mkdocs pytest sphinx black==19.10b0
