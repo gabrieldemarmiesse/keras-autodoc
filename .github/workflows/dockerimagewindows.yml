@@ -1,4 +1,4 @@
-name: Unit testing
+name: Unit testing windows
 
 on: [push, pull_request]
 
