@@ -1,0 +1,14 @@
+name: Unit testing
+
+on: [push, pull_request]
+
+jobs:
+
+  build:
+
+    runs-on: windows-latest
+
+    steps:
+    - uses: actions/checkout@v1
+    - name: Build the Docker image
+      run: docker pull winamd64/python:3.6
