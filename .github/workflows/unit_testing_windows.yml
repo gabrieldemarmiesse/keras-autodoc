@@ -12,6 +12,6 @@ jobs:
     - uses: actions/checkout@v1
     - name: Build the Docker image
       run: |
-        docker pull winamd64/python:3.6
-        docker tag winamd64/python:3.6 python:3.6
+        docker pull winamd64/python:3.6-windowsservercore
+        docker tag winamd64/python:3.6-windowsservercore python:3.6
         docker build . --file tests/Dockerfile --tag test_image
