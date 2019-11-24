@@ -1,4 +1,4 @@
-name: Unit testing
+name: Unit testing linux
 
 on: [push, pull_request]
 
