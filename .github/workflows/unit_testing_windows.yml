@@ -10,7 +10,7 @@ jobs:
     steps:
     - uses: actions/checkout@v1
     - name: Pull the Docker image
-        run: |
+      run: |
           docker pull winamd64/python:3.6-windowsservercore
           docker tag winamd64/python:3.6-windowsservercore python:3.6
     - name: Build the Docker image
