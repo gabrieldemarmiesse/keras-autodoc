@@ -526,15 +526,19 @@ def doing_things(an_argument: dummy_package.DataGenerator):
 
     """
 
+
 def test_rendinging_with_extra_alias():
     extra_aliases = ["tests.dummy_package.DataGenerator"]
-    generated = autogen.DocumentationGenerator(extra_aliases=extra_aliases)._render(doing_things)
+    generated = autogen.DocumentationGenerator(extra_aliases=extra_aliases)._render(
+        doing_things)
     assert "- __an_argument__ `tests.dummy_package.DataGenerator`: Some" in generated
 
 
 def test_rendinging_with_extra_alias_custom_alias():
-    extra_aliases = {"tests.dummy_package.dummy_module.ImageDataGenerator": "some.new.Thing"}
-    generated = autogen.DocumentationGenerator(extra_aliases=extra_aliases)._render(doing_things)
+    extra_aliases = {"tests.dummy_package.dummy_module.ImageDataGenerator":
+                     "some.new.Thing"}
+    generated = autogen.DocumentationGenerator(extra_aliases=extra_aliases)._render(
+        doing_things)
     assert "- __an_argument__ `some.new.Thing`: Some" in generated
 
 

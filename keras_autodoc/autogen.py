@@ -47,7 +47,7 @@ class DocumentationGenerator:
                  project_url: Union[str, Dict[str, str]] = None,
                  template_dir=None,
                  examples_dir=None,
-                 extra_aliases: Union[List[str], Dict[str, str]] =None):
+                 extra_aliases: Union[List[str], Dict[str, str]] = None):
         self.pages = pages
         self.project_url = project_url
         self.template_dir = template_dir
